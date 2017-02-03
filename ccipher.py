@@ -1,7 +1,11 @@
-import string
+letters = "abcdefghijklmnopqrstuvwxyz"
 def ccipher(encode, key):
     crypted = ""
-    for ch in encode:
-        crypted = crypted + string.ascii_lowercase[encode.find(ch) + key]
-    print crypted
-ccipher("hello", 2)
+    if isalpha(encode) == True:
+    	for ch in encode:
+        	if isspace(ch) == False:
+                slicer = 
+    	print crypted
+    else:
+        print "Error: alphabet letters only."
+ccipher("hello", 3)
