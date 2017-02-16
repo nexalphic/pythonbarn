@@ -1,16 +1,26 @@
 letters = "abcdefghijklmnopqrstuvwxyz"
-def ccipher(encode, key):
+def ccipher():
     result = ""
-    mode = int(input("Would you like to (1)encrypt or (2)decrypt?"))
-    if mode == 1:
+    encode = str(input("Input a string."))
+    mode = input("Would you like to encrypt, decrypt, or brute force?")
+    if mode in [1, "encrypt", "e", "Encrypt", "E"]:
+        key = int(input("Input a key."))
         for ch in encode:
             result = result + chr(ord(ch) + key)
-    elif mode == 2:
+    elif mode in [2, "decrypt", "e", "Decrypt", "E"]:
+        key = int(input("Input a key."))
         for ch in encode:
             crypted = crypted + chr(ord(ch) - key)
+    elif mode in [3, "brute force", "b", "brute", "force"]:
+        times = int(input("How many times would you like to brute force?"))
+        key = 1
+        for times in range(times):
+            for ch in encode:
+                crypted = crypted + chr(ord(ch) - key)
+        key -= 1
     else:
         print "mode number not recognized"
     print result
     
 #Example input:
-print ccipher(input"Input string.")
+ccipher()
