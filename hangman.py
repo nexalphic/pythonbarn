@@ -1,7 +1,7 @@
 import simplegui
 import random
 
-wordList = ["monster", "witch", "ghost", "pirate"]
+wordList = ["monster", "witch", "ghost", "pirate", "pumpkin", "princess", "chocolate"]
 
 nooseStates = {
     6: """
@@ -77,38 +77,52 @@ _|___
 }
 targetWord = ""
 guess = ""
+playing = True
+cash = 100
+broken = False
 
 def confirmLetter(place, revealW, confirmW):
     revealW = list(revealW)
     revealW[place] = confirmW[place]
-    "".join(revealW)
-    return revealW
+    return "".join(revealW)
 
-while True:
+while playing == True:
     targetWord = random.choice(wordList)
     revealedWord = "*" * len(targetWord)
     tries = 6
+    win = False
+    print "You have: %s ollars." % cash
+    bet = int(input("Place a bet."))
     while tries > 0:
         print "The word is:" + revealedWord
         print
         print nooseStates[tries]
         guess = input("Guess what letter might be in the word or the word itself.")
         if guess == "quit":
+            playing = False
             break
-        if len(guess) == 1:
+        elif len(guess) == 1:
             if guess in targetWord:
                 for l in range(0, len(targetWord)):
                     if targetWord[l] == guess:
-                        confirmLetter(l, revealedWord, targetWord)
+                        print "t"
+                        revealedWord = confirmLetter(l, revealedWord, targetWord)
+                        
             else:
                 tries -= 1
         elif len(guess) > 1:
             if guess == targetWord:
                 revealedWord = targetWord
-                print "You win!"
+                win = True
+                print "The word is: " + targetWord
                 break
             else:
                 tries -= 1
         else:
             print "You didn't even put in anything..."
-            
+    if win == True:
+        print "You win!"
+        cash += bet
+    else:
+        print "You lost..." 
+        cash -= bet
