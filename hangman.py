@@ -93,6 +93,8 @@ while True:
         print
         print nooseStates[tries]
         guess = input("Guess what letter might be in the word or the word itself.")
+        if guess == "quit":
+            break
         if len(guess) == 1:
             if guess in targetWord:
                 for l in range(0, len(targetWord)):
