@@ -120,9 +120,10 @@ while playing == True:
                 tries -= 1
         else:
             print "You didn't even put in anything..."
-    if win == True:
-        print "You win!"
-        cash += bet
-    else:
-        print "You lost..." 
-        cash -= bet
+    if playing == False:
+        if win == True:
+            print "You win!"
+            cash += bet
+        else:
+            print "You lost..." 
+            cash -= bet
