@@ -92,7 +92,9 @@ while playing == True:
     tries = 6
     win = False
     print "You have: %s ollars." % cash
-    bet = int(input("Place a bet."))
+    bet = input("Place a bet.")
+    if bet == "quit":
+        break
     while tries > 0:
         print "The word is:" + revealedWord
         print
@@ -120,10 +122,10 @@ while playing == True:
                 tries -= 1
         else:
             print "You didn't even put in anything..."
-    if playing == False:
+    if playing == True:
         if win == True:
             print "You win!"
-            cash += bet
+            cash += int(bet)
         else:
             print "You lost..." 
-            cash -= bet
+            cash -= int(bet)
