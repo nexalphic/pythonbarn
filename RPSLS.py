@@ -13,11 +13,13 @@ gameOn = True
 
 while gameOn == True:
     playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?")
-   	while lower(playerChoice) not in ["rock", "paper", "scissors", "lizard", "spock", "quit"]:
+    while playerChoice.lower() not in ["rock", "paper", "scissors", "lizard", "spock", "quit"]:
         playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?")
     computerChoice = random.choice(list(choices))
-    x = abs(computerChoice - playerChoice) % 5
-    if lower(playerChoice) == "quit":
+    x = abs(choices[computerChoice] - choices[playerChoice]) % 5
+    print "You chose " + playerChoice
+    print "The computer chose " + computerChoice
+    if playerChoice.lower() == "quit":
         break
     elif x == 0:
         print "It's a tie."
@@ -27,13 +29,14 @@ while gameOn == True:
     else:
         print "You lose."
         playerscore -= 1
-	foundInput = False
-	while foundInput == False
-    	keepPlaying = lower(input("Keep playing? Y/N"))
-    	if keepPlaying in ["y", "n", "yes", "no"]:
-        	if keepPlaying in ["y", "yes"]:
-            	foundInput == True
-        	elif keepPlaying in ["n", "no"]:
+    foundInput = False
+    while foundInput == False:
+        keepPlaying = input("Keep playing? Y/N").lower()
+        if keepPlaying in ["y", "n", "yes", "no"]:
+            if keepPlaying in ["y", "yes"]:
+                foundInput == True
+            elif keepPlaying in ["n", "no"]:
                 gameOn == False
-                print "Your score was: " + playerScore
+                break
+                print "Your score was: " + str(playerScore)
                 foundInput == True
