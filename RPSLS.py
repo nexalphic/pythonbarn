@@ -18,7 +18,7 @@ while gameOn == True:
     computerChoice = random.choice(list(choices))
     x = abs(computerChoice - playerChoice) % 5
     if lower(playerChoice) == "quit":
-        gameOn = False
+        break
     elif x == 0:
         print "It's a tie."
     elif x == 2 or x == 1:
@@ -27,8 +27,13 @@ while gameOn == True:
     else:
         print "You lose."
         playerscore -= 1
-    keepPlaying = lower(input("Keep playing? Y/N"))
-    if keepPlaying in ["y", "n", "yes", "no"]:
-        if keepPlaying in ["y", "yes"]:
-            pass
-        elif keepPlaying
+	foundInput = False
+	while foundInput == False
+    	keepPlaying = lower(input("Keep playing? Y/N"))
+    	if keepPlaying in ["y", "n", "yes", "no"]:
+        	if keepPlaying in ["y", "yes"]:
+            	foundInput == True
+        	elif keepPlaying in ["n", "no"]:
+                gameOn == False
+                print "Your score was: " + playerScore
+                foundInput == True
