@@ -11,6 +11,7 @@ choices = {
 playerScore = 0
 gameOn = True
 
+
 while gameOn == True:
     playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?")
     while playerChoice.lower() not in ["rock", "paper", "scissors", "lizard", "spock", "quit"]:
@@ -35,11 +36,10 @@ while gameOn == True:
             keepPlaying = input("Keep playing? Y/N").lower()
             if keepPlaying in ["y", "n", "yes", "no"]:
                 if keepPlaying in ["y", "yes"]:
-                    foundInput == True
+                    foundInput = True
                 elif keepPlaying in ["n", "no"]:
-                    gameOn == False
-                    break
-                    print "Your score was: " + str(playerScore)
-                    foundInput == True
+                    gameOn = False
+                    foundInput = True
             else:
                 print "That's not yes or no."
+print "Your score was: " + str(playerScore)
