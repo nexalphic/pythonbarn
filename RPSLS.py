@@ -13,13 +13,14 @@ gameOn = True
 
 
 while gameOn == True:
-    playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?")
-    while playerChoice.lower() not in ["rock", "paper", "scissors", "lizard", "spock", "quit"]:
+    playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?").lower()
+    print playerChoice
+    while playerChoice not in ["rock", "paper", "scissors", "lizard", "spock", "quit"]:
         playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?")
     computerChoice = random.choice(list(choices))
     print "You chose " + playerChoice
     print "The computer chose " + computerChoice
-    if playerChoice.lower() == "quit":
+    if playerChoice == "quit":
         break
     else:
         x = abs(choices[computerChoice] - choices[playerChoice]) % 5
