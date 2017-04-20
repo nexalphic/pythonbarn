@@ -1,4 +1,9 @@
 import random
+import simplegui
+
+WIDTH = 200
+HEIGHT = 200
+
 
 choices = {
     "rock": 0,
@@ -8,10 +13,28 @@ choices = {
     "spock": 4,
 }
 
+
 playerScore = 0
 gameOn = True
 
+frame = simplegui.create_frame("Rock, Paper, Scissors, Lizard, Spock", WIDTH, HEIGHT)
 
+
+def input_handler():
+    foundInput == True
+inp = frame.add_input('Input', input_handler, 50)
+
+playerChoice = ""
+computerChoice = ""
+
+def draw_handler(canvas):
+    canvas.draw_text(str(playerScore), [100, 20], 12, "White")
+    canvas.draw_text(playerChoice, [20, 100], 40, "White")
+    canvas.draw_text(computerChoice, [180, 100], 40, "White")
+
+frame.set_draw_handler(draw_handler)
+
+    
 while gameOn == True:
     playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?").lower()
     print playerChoice
@@ -44,3 +67,10 @@ while gameOn == True:
             else:
                 print "That's not yes or no."
 print "Your score was: " + str(playerScore)
+
+
+
+
+
+
+frame.start()
