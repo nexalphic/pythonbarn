@@ -19,6 +19,7 @@ gameOn = True
 
 frame = simplegui.create_frame("Rock, Paper, Scissors, Lizard, Spock", WIDTH, HEIGHT)
 
+foundInput = False
 
 def input_handler():
     foundInput == True
@@ -28,18 +29,18 @@ playerChoice = ""
 computerChoice = ""
 
 def draw_handler(canvas):
-    canvas.draw_text(str(playerScore), [100, 20], 12, "White")
-    canvas.draw_text(playerChoice, [20, 100], 40, "White")
-    canvas.draw_text(computerChoice, [180, 100], 40, "White")
+    canvas.draw_text(str(playerScore), [100, 40], 12, "White")
+    canvas.draw_text(playerChoice, [20, 100], 20, "White")
+    canvas.draw_text(computerChoice, [140, 100], 20, "White")
 
 frame.set_draw_handler(draw_handler)
 
     
 while gameOn == True:
-    playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?").lower()
+    playerChoice = playerChoice.lower()
     print playerChoice
-    while playerChoice not in ["rock", "paper", "scissors", "lizard", "spock", "quit"]:
-        playerChoice = input("Rock, Paper, Scissors, Lizard, or Spock?")
+    while foundInput == False:
+        pass
     computerChoice = random.choice(list(choices))
     print "You chose " + playerChoice
     print "The computer chose " + computerChoice
