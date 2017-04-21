@@ -18,40 +18,43 @@ playerScore = 0
 
 frame = simplegui.create_frame("Rock, Paper, Scissors, Lizard, Spock", WIDTH, HEIGHT)
 
-playerChoice = ""
 computerChoice = ""
 playing = True
-
+winOrlose = ""
+playerAttack = ""
 def draw_handler(canvas):
-    if playing == True:
+    
         canvas.draw_text(str(playerScore), [100, 40], 12, "White")
-        canvas.draw_text(playerChoice, [20, 100], 20, "White")
-        canvas.draw_text(computerChoice, [140, 100], 20, "White")
-    else:
-        canvas.draw_text("Keep playing? Y/N?", [20, 100], 20, "White")
-
+        canvas.draw_text(str(computerChoice), [140, 160], 20, "White")
+        canvas.draw_text(str(playerAttack), [20, 160], 20, "White")
+        if playing == False:
+            canvas.draw_text(winOrlose + " Keep playing? Y/N?", [15, 100], 15, "White")
+            
 frame.set_draw_handler(draw_handler)
 
 askChoice = True
 
-def game(playerChoice):
+def game(playerC):
     global playing
     global playerScore
-    playerChoice = playerChoice.lower()
+    global playerAttack
+    global computerChoice
+    global winOrlose
+    playerChoice = playerC.lower()
     if playing == True:
-        playing = True
         if playerChoice in ["rock", "r", "paper", "p", "scissors", "s", "lizard", "l", "spock", "s"]:
+            playerAttack = playerChoice
             computerChoice = random.choice(list(choices))
-            print "You chose " + playerChoice
+            print "You chose " + playerAttack
             print "The computer chose " + computerChoice
-            x = abs(choices[computerChoice] - choices[playerChoice]) % 5
+            x = abs(choices[computerChoice] - choices[playerAttack]) % 5
             if x == 0:
-                print "It's a tie."
+                winOrlose = "It's a tie."
             if x == 2 or x == 1:
-                print "You win."
+                winOrlose = "You win."
                 playerScore += 1
             else:
-                print "You lose."
+                winOrlose = "You lose."
                 playerScore -= 1
             playing = False
         else:
@@ -76,3 +79,4 @@ inp = frame.add_input('Input', game, 100)
 
 
 frame.start()
+	
