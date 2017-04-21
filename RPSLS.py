@@ -15,60 +15,61 @@ choices = {
 
 
 playerScore = 0
-gameOn = True
 
 frame = simplegui.create_frame("Rock, Paper, Scissors, Lizard, Spock", WIDTH, HEIGHT)
 
-foundInput = False
-
-def input_handler():
-    foundInput == True
-inp = frame.add_input('Input', input_handler, 50)
-
 playerChoice = ""
 computerChoice = ""
+playing = True
 
 def draw_handler(canvas):
-    canvas.draw_text(str(playerScore), [100, 40], 12, "White")
-    canvas.draw_text(playerChoice, [20, 100], 20, "White")
-    canvas.draw_text(computerChoice, [140, 100], 20, "White")
+    if playing == True:
+        canvas.draw_text(str(playerScore), [100, 40], 12, "White")
+        canvas.draw_text(playerChoice, [20, 100], 20, "White")
+        canvas.draw_text(computerChoice, [140, 100], 20, "White")
+    else:
+        canvas.draw_text("Keep playing? Y/N?", [140, 100], 20, "White")
 
 frame.set_draw_handler(draw_handler)
 
-    
-while gameOn == True:
+askChoice = True
+
+def game(playerChoice):
+    global askChoice
+    global playerScore
     playerChoice = playerChoice.lower()
-    print playerChoice
-    while foundInput == False:
-        pass
-    computerChoice = random.choice(list(choices))
-    print "You chose " + playerChoice
-    print "The computer chose " + computerChoice
-    if playerChoice == "quit":
-        break
-    else:
-        x = abs(choices[computerChoice] - choices[playerChoice]) % 5
-        if x == 0:
-            print "It's a tie."
-        if x == 2 or x == 1:
-            print "You win."
-            playerScore += 1
+    if askChoice == True:
+        playing = True
+        if playerChoice in ["rock", "r", "paper", "p", "scissors", "s", "lizard", "l", "spock", "s"]:
+            computerChoice = random.choice(list(choices))
+            print "You chose " + playerChoice
+            print "The computer chose " + computerChoice
+            x = abs(choices[computerChoice] - choices[playerChoice]) % 5
+            if x == 0:
+                print "It's a tie."
+            if x == 2 or x == 1:
+                print "You win."
+                playerScore += 1
+            else:
+                print "You lose."
+                playerScore -= 1
+            playing = False
         else:
-            print "You lose."
-            playerScore -= 1
-        foundInput = False
-        while foundInput == False:
-            keepPlaying = input("Keep playing? Y/N").lower()
-            if keepPlaying in ["y", "n", "yes", "no"]:
-                if keepPlaying in ["y", "yes"]:
-                    foundInput = True
-                elif keepPlaying in ["n", "no"]:
-                    gameOn = False
-                    foundInput = True
+            print "Input not accepted."
+    else:
+        
+        if playerChoice in ["y", "n", "yes", "no"]:
+            if keepPlaying in ["y", "yes"]:
+                pass
+            elif keepPlaying in ["n", "no"]:
+                print "Your score was: " + str(playerScore)
             else:
                 print "That's not yes or no."
-print "Your score was: " + str(playerScore)
+            playing = True
+        
+    
 
+inp = frame.add_input('Input', game, 50)
 
 
 
