@@ -28,17 +28,17 @@ def draw_handler(canvas):
         canvas.draw_text(playerChoice, [20, 100], 20, "White")
         canvas.draw_text(computerChoice, [140, 100], 20, "White")
     else:
-        canvas.draw_text("Keep playing? Y/N?", [140, 100], 20, "White")
+        canvas.draw_text("Keep playing? Y/N?", [20, 100], 20, "White")
 
 frame.set_draw_handler(draw_handler)
 
 askChoice = True
 
 def game(playerChoice):
-    global askChoice
+    global playing
     global playerScore
     playerChoice = playerChoice.lower()
-    if askChoice == True:
+    if playing == True:
         playing = True
         if playerChoice in ["rock", "r", "paper", "p", "scissors", "s", "lizard", "l", "spock", "s"]:
             computerChoice = random.choice(list(choices))
@@ -59,9 +59,9 @@ def game(playerChoice):
     else:
         
         if playerChoice in ["y", "n", "yes", "no"]:
-            if keepPlaying in ["y", "yes"]:
+            if playerChoice in ["y", "yes"]:
                 pass
-            elif keepPlaying in ["n", "no"]:
+            elif playerChoice in ["n", "no"]:
                 print "Your score was: " + str(playerScore)
             else:
                 print "That's not yes or no."
@@ -69,7 +69,7 @@ def game(playerChoice):
         
     
 
-inp = frame.add_input('Input', game, 50)
+inp = frame.add_input('Input', game, 100)
 
 
 
