@@ -46,7 +46,9 @@ def mouse_handler(position):
         grid[1][0] = 1
         grid[1][2] = 2
         
-    
+def mark_draw(zone):
+    if grid[x][y] == "x":
+    	if x == 0:
         
         
 
@@ -65,8 +67,8 @@ def draw_handler(canvas):
         canvas.draw_line((20, 400), (580, 400), 5, "White")
     for x in xrange(len(grid)):
         for y in xrange(len(grid(x):
-			if grid[x][y] == "x":
-                            if x = 
+            	mark_draw(grid[x][y], x, y)
+                            
 frame.set_draw_handler(draw_handler)
 
 
