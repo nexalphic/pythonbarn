@@ -26,13 +26,13 @@ player_piece = True
 
 def mouseZone(position):
     zone = []
-    for axis in range(0, 2):
+    for axis in range(1, -1, -1):
         if position[axis] < 200:
-            zone.append(1)
+            zone.append(0)
         elif position[axis] < 400:
-            zone.append(2)
+            zone.append(1)
         else:
-            zone.append(3)
+            zone.append(2)
     return zone
 
 def centerText(text):
@@ -56,18 +56,21 @@ def mouse_handler(position):
     zone = mouseZone(position)
     if playing == "start":
         centerText("start")
-        if zone == [1, 2]:
-            player_piece = 1
-            print "hello"
-            playing = "game"
-        elif zone == [1, 0]:
+        if zone == [1, 0]:
+            #Option O
             player_piece = 2
+            wipeGrid()
+            centerText("game")
             playing = "game"
-            print "hello"
-        wipeGrid()
-        centerText("game")
+        elif zone == [1, 2]:
+            #Option X
+            player_piece = 1
+            wipeGrid()
+            centerText("game")
+            playing = "game"
     elif playing == "game":
         if grid[zone[1]][zone[0]] != 1 or grid[zone[1]][zone[0]] != 2:
+            print grid[zone[1]][zone[0]]
             grid[zone[1]][zone[0]] = player_piece
     
 frame = simplegui.create_frame("Tic Tac Toe", WIDTH, HEIGHT)
