@@ -51,6 +51,27 @@ centerText(playing)
 grid[1][2] = 1
 grid[1][0] = 2
 
+def ai(grid):
+    found_move = False
+    while found_move == False:
+        random_x = random.randrange(1, 3)
+        random_y = random.randrange(1, 3)
+        if grid[zone[random_y]][zone[x]] != 1 or grid[zone[random_y]][zone[random_x]] != 2:
+            grid[zone[random_y]][zone[random_x]] = computer_piece
+            found_move = True
+
+def winDetect(grid):
+    for i in range(0, 3):
+        if grid[i][0] == grid[i][1] == grid[i][2]:
+            return grid[i][0]
+        elif grid[0][i] == grid[1][i] == grid[2][i]:
+            return grid[0][i]
+    if grid[0][0] == grid[1][1] == grid[2][2]:
+        return grid[0][0]
+    if grid[0][2] == grid[2][2] == grid[2][0]:
+        return grid[0][2]
+            
+            
 def mouse_handler(position):
     global grid
     global playing
@@ -73,24 +94,20 @@ def mouse_handler(position):
             centerText("game")
             print "X goes first."
             playing = "game"
-        if player_piece = 1:
+        if player_piece == 1:
             computer_piece = 2
         else:
             computer_piece = 1
     elif playing == "game":
         if grid[zone[0]][zone[1]] != 1 or grid[zone[1]][zone[0]] != 2:
             grid[zone[0]][zone[1]] = player_piece
+        if winDetect(grid) == 1 or winDetect(grid) == 0:
+            print "hello"
 
-            
-def ai(grid):
-    found_move = False
-    while found_move = False:
-        random_x = random.randrange(1, 3)
-        random_y = random.randrange(1, 3)
-        if grid[zone[random_x]][zone[1]] != 1 or grid[zone[1]][zone[0]] != 2:
-            grid[zone[0]][zone[1]] = computer_piece
+#random grid location   
 
-        
+
+
 frame = simplegui.create_frame("Tic Tac Toe", WIDTH, HEIGHT)
 
 frame.set_mouseclick_handler(mouse_handler)
