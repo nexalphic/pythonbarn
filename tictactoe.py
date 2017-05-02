@@ -22,6 +22,8 @@ wipeGrid()
 playing = "start"
 c_text = []
 player_piece = True
+computer_piece = True
+turn = random.choice(range(1, 3))
 #1 = X, 2 = O
 
 def mouseZone(position):
@@ -53,6 +55,7 @@ def mouse_handler(position):
     global grid
     global playing
     global player_piece
+    global computer_choice
     zone = mouseZone(position)
     if playing == "start":
         centerText("start")
@@ -61,18 +64,33 @@ def mouse_handler(position):
             player_piece = 2
             wipeGrid()
             centerText("game")
+            print "O goes first."
             playing = "game"
         elif zone == [1, 2]:
             #Option X
             player_piece = 1
             wipeGrid()
             centerText("game")
+            print "X goes first."
             playing = "game"
+        if player_piece = 1:
+            computer_piece = 2
+        else:
+            computer_piece = 1
     elif playing == "game":
-        if grid[zone[1]][zone[0]] != 1 or grid[zone[1]][zone[0]] != 2:
-            print grid[zone[1]][zone[0]]
-            grid[zone[1]][zone[0]] = player_piece
-    
+        if grid[zone[0]][zone[1]] != 1 or grid[zone[1]][zone[0]] != 2:
+            grid[zone[0]][zone[1]] = player_piece
+
+            
+def ai(grid):
+    found_move = False
+    while found_move = False:
+        random_x = random.randrange(1, 3)
+        random_y = random.randrange(1, 3)
+        if grid[zone[random_x]][zone[1]] != 1 or grid[zone[1]][zone[0]] != 2:
+            grid[zone[0]][zone[1]] = computer_piece
+
+        
 frame = simplegui.create_frame("Tic Tac Toe", WIDTH, HEIGHT)
 
 frame.set_mouseclick_handler(mouse_handler)
