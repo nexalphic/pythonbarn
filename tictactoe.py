@@ -53,25 +53,43 @@ grid[1][0] = 2
 
 def ai(grid):
     found_move = False
-    while found_move == False:
-        random_x = random.randrange(1, 3)
-        random_y = random.randrange(1, 3)
-        if grid[zone[random_y]][zone[x]] != 1 or grid[zone[random_y]][zone[random_x]] != 2:
-            grid[zone[random_y]][zone[random_x]] = computer_piece
+    times = 27
+    while found_move == False and times < 27:
+        random_x = random.randrange(0, 3)
+        random_y = random.randrange(0, 3)
+        if grid[random_y][random_x] != 1 and grid[random_y][random_x] != 2:
+            grid[random_y][random_x] = computer_piece
             found_move = True
+        else:
+            times += 1
 
 def winDetect(grid):
     for i in range(0, 3):
-        if grid[i][0] == grid[i][1] == grid[i][2]:
+        if grid[i][0] == grid[i][1] == grid[i][2] != 0:
             return grid[i][0]
-        elif grid[0][i] == grid[1][i] == grid[2][i]:
+            break
+        elif grid[0][i] == grid[1][i] == grid[2][i] != 0:
             return grid[0][i]
-    if grid[0][0] == grid[1][1] == grid[2][2]:
+            break
+    if grid[0][0] == grid[1][1] == grid[2][2] != 0:
         return grid[0][0]
-    if grid[0][2] == grid[2][2] == grid[2][0]:
+    if grid[0][2] == grid[2][2] == grid[2][0] != 0:
         return grid[0][2]
             
-            
+def setup():
+    global playing
+    global player_piece
+    global computer_piece
+    wipeGrid()
+    centerText("game")
+    playing = "game"
+    if random.choice([True, False]) == True:
+        ai(grid)
+    if player_piece == 1:
+        computer_piece = 2
+    else:
+        computer_piece = 1
+    
 def mouse_handler(position):
     global grid
     global playing
@@ -83,26 +101,20 @@ def mouse_handler(position):
         if zone == [1, 0]:
             #Option O
             player_piece = 2
-            wipeGrid()
-            centerText("game")
-            print "O goes first."
-            playing = "game"
+            setup()
         elif zone == [1, 2]:
             #Option X
             player_piece = 1
-            wipeGrid()
-            centerText("game")
-            print "X goes first."
-            playing = "game"
-        if player_piece == 1:
-            computer_piece = 2
-        else:
-            computer_piece = 1
+            setup()
     elif playing == "game":
-        if grid[zone[0]][zone[1]] != 1 or grid[zone[1]][zone[0]] != 2:
+        if grid[zone[0]][zone[1]] != 1 and grid[zone[1]][zone[0]] != 2:
             grid[zone[0]][zone[1]] = player_piece
+            ai(grid)
         if winDetect(grid) == 1 or winDetect(grid) == 0:
-            print "hello"
+            if winDetect(grid) == 1:
+                print "X wins!"
+            elif winDetect(grid) == 2:
+                print "O wins!"
 
 #random grid location   
 
