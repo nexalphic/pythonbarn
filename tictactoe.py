@@ -20,11 +20,13 @@ def wipeGrid():
     
 wipeGrid()
 playing = "start"
-c_text = []
+c_text = [0, "", 0, "White", "White"]
 player_piece = True
 computer_piece = True
 turn = random.choice(range(1, 3))
+tie = False
 #1 = X, 2 = O
+
 
 def mouseZone(position):
     zone = []
@@ -37,24 +39,33 @@ def mouseZone(position):
             zone.append(2)
     return zone
 
+
 def centerText(text):
     global c_text
     if text == "start":
-        c_text = [249, "or", 120]
-    elif text == "wins":
-        c_text = [205, "wins", 96]
+        c_text = [249, "or", 120, "White", "White"]
+    elif text == "X_wins":
+        c_text = [225, "win", 96, "Green", "White"]
+    elif text == "O_wins":
+        c_text = [225, "win", 96, "White", "Green"]
+    elif text == "tie":
+        c_text == [225, "tie", 96, "White", "White"]
     else:
         c_text[1] = ""
+
         
 centerText(playing)       
-    
+
 grid[1][2] = 1
 grid[1][0] = 2
 
+
 def ai(grid):
+    global tie
     found_move = False
-    times = 27
+    times = 0
     while found_move == False and times < 27:
+        #random grid location
         random_x = random.randrange(0, 3)
         random_y = random.randrange(0, 3)
         if grid[random_y][random_x] != 1 and grid[random_y][random_x] != 2:
@@ -62,6 +73,8 @@ def ai(grid):
             found_move = True
         else:
             times += 1
+    if times >= 27:
+        tie = True
 
 def winDetect(grid):
     for i in range(0, 3):
@@ -110,14 +123,16 @@ def mouse_handler(position):
         if grid[zone[0]][zone[1]] != 1 and grid[zone[1]][zone[0]] != 2:
             grid[zone[0]][zone[1]] = player_piece
             ai(grid)
-        if winDetect(grid) == 1 or winDetect(grid) == 0:
+        if tie == True:
+            print "It's a tie!"
+            centerText("tie")
+        elif winDetect(grid) == 1 or winDetect(grid) == 2:
             if winDetect(grid) == 1:
+                centerText("X_wins")
                 print "X wins!"
             elif winDetect(grid) == 2:
+                centerText("O_wins")
                 print "O wins!"
-
-#random grid location   
-
 
 
 frame = simplegui.create_frame("Tic Tac Toe", WIDTH, HEIGHT)
@@ -136,10 +151,10 @@ def draw_handler(canvas):
         for x in xrange(len(grid[y])):
             state = grid[y][x]
             if state == 1:
-                canvas.draw_line((x*200+20, y*200+20), (x*200+180, y*200+180), 7, "White")
-                canvas.draw_line((x*200+180, y*200+20), (x*200+20, y*200+180), 7, "White")
+                canvas.draw_line((x*200+20, y*200+20), (x*200+180, y*200+180), 7, c_text[3])
+                canvas.draw_line((x*200+180, y*200+20), (x*200+20, y*200+180), 7, c_text[3])
             elif state == 2:
-                canvas.draw_circle((x*200+100, y*200+100), 80, 7, "White")
+                canvas.draw_circle((x*200+100, y*200+100), 80, 7, c_text[4])
                             
 frame.set_draw_handler(draw_handler)
 
