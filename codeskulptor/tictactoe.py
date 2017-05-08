@@ -10,6 +10,9 @@ states = {
     2: "o"
 }
 
+colors = ("Black", "Red", "Orange", "Yellow", "Green", "Blue", "Purple")
+color = 0
+          
 def wipeGrid():
     global grid
     grid = [
@@ -52,6 +55,7 @@ def centerText(text):
         c_text == [225, "tie", 96, "White", "White"]
     else:
         c_text[1] = ""
+
 
         
 centerText(playing)       
@@ -138,6 +142,17 @@ def mouse_handler(position):
 frame = simplegui.create_frame("Tic Tac Toe", WIDTH, HEIGHT)
 
 frame.set_mouseclick_handler(mouse_handler)
+
+frame.set_canvas_background('Black')
+          
+def key_handler(key):
+    global color
+    global colors
+    if key == simplegui.KEY_MAP['r']:
+            color += 1       
+            frame.set_canvas_background(colors[color % 7])
+            
+frame.set_keydown_handler(key_handler)
 
 def draw_handler(canvas):
     global grid
